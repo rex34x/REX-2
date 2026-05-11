@@ -1,112 +1,473 @@
-<header style="background:#050505;padding:20px;display:flex;justify-content:space-between;align-items:center;">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>REX | نظام إدارة المستندات الرسمي</title>
+    <link href="https://fonts.googleapis.com/css2?display=swap&family=Cairo:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', 'Inter', sans-serif;
+        }
+
+        body {
+            background: radial-gradient(circle at 10% 20%, #0a0a0a, #000000);
+            min-height: 100vh;
+            color: #e0e0e0;
+            padding: 20px;
+        }
+
+        /* الزجاجي والذهبي */
+        .glass-card {
+            background: rgba(10, 10, 10, 0.55);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            border-radius: 28px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 0 0.5px rgba(212, 175, 55, 0.1) inset;
+            transition: all 0.25s ease;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(212, 175, 55, 0.6);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), 0 0 15px rgba(212, 175, 55, 0.2);
+        }
+
+        .gold-text {
+            color: #D4AF37;
+            text-shadow: 0 0 5px rgba(212, 175, 55, 0.3);
+        }
+
+        .gold-border {
+            border-color: #D4AF37;
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, #D4AF37 0%, #B38F2E 100%);
+            color: #0B0B0B;
+            font-weight: 800;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+            filter: brightness(1.05);
+        }
+
+        .btn-outline-gold {
+            background: transparent;
+            border: 1.5px solid #D4AF37;
+            color: #D4AF37;
+            font-weight: 600;
+        }
+
+        .btn-outline-gold:hover {
+            background: rgba(212, 175, 55, 0.15);
+            transform: translateY(-2px);
+        }
+
+        input, select, textarea {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid #333;
+            border-radius: 16px;
+            padding: 12px 16px;
+            color: white;
+            transition: all 0.2s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #D4AF37;
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+        }
+
+        /* تبويبات */
+        .tab-btn {
+            padding: 10px 22px;
+            border-radius: 40px;
+            background: rgba(0,0,0,0.5);
+            color: #ccc;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .tab-btn.active {
+            background: rgba(212, 175, 55, 0.2);
+            color: #D4AF37;
+            border-color: #D4AF37;
+            box-shadow: 0 0 8px rgba(212,175,55,0.3);
+        }
+
+        .badge {
+            background: #D4AF37;
+            color: #000;
+            font-weight: bold;
+            border-radius: 40px;
+            padding: 4px 12px;
+            font-size: 0.75rem;
+        }
+
+        /* تأثيرات حركة بسيطة */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        .page {
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* شريط تمرير جميل */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #1a1a1a; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 10px; }
+
+        .signature-preview {
+            font-family: 'Brush Script MT', cursive;
+            font-size: 1.8rem;
+            border-bottom: 2px dashed #D4AF37;
+            display: inline-block;
+            min-width: 150px;
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 12px; }
+            .flex-wrap-mobile { flex-wrap: wrap; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="max-w-7xl mx-auto" style="margin: 0 auto; max-width: 1400px;">
     
-    <strong style="color:rgb(255, 255, 255);font-size:18px;">REX SERVER</strong>
-    <h2>المالنخبة جتمع العربي الأول الذي يجمع بين التميز والإبداع. مكانك، بين <h2>
-    </section>
-
-    <div class="container">
-        <div class="card">
-            <i>💬</i>
-            <h2>انضم إلينا</h2>
-            <p>انضم إلى مجتمعنا على الديسكورد لتبدأ اللعب فوراً.</p>
-            <a href="https://discord.gg/fpEnQp64Pp" target="_blank" class="btn btn-discord">دخول الديسكورد</a>
+    <!-- الهيدر مع الشعار -->
+    <div class="flex justify-between items-center flex-wrap gap-4 mb-8 p-4 glass-card rounded-2xl">
+        <div class="flex items-center gap-3">
+            <div class="w-12 h-12 bg-gold rounded-full flex items-center justify-center shadow-lg" style="background:#D4AF37;">
+                <span class="text-black font-black text-2xl">R</span>
+            </div>
+            <div>
+                <h1 class="text-2xl font-black gold-text">REX Admin</h1>
+                <p class="text-xs text-gray-400">نظام إدارة المستندات الرسمي RDMS</p>
+            </div>
         </div>
+        <div class="flex gap-3">
+            <button id="logoutBtn" class="px-4 py-2 bg-red-900/40 rounded-xl text-sm hover:bg-red-800/50 transition">🚪 خروج</button>
+            <div id="userRoleBadge" class="badge self-center">عضو</div>
+        </div>
+    </div>
 
+    <!-- تبويبات التنقل الرئيسية -->
+    <div class="flex gap-3 mb-8 flex-wrap">
+        <button data-tab="dashboard" class="tab-btn active">📊 لوحة القيادة</button>
+        <button data-tab="sendLetter" class="tab-btn">✉️ إرسال خطاب</button>
+        <button data-tab="documents" class="tab-btn">📂 المستندات</button>
+        <button data-tab="rules" class="tab-btn">📜 القوانين</button>
+        <button data-tab="adminPanel" class="tab-btn" id="adminTabBtn">⚙️ الإدارة (المشرف)</button>
+    </div>
 
-</header>
-<section id="apply" style="max-width:700px;margin:40px auto;background:#111;padding:25px;border-radius:20px;">
+    <!-- محتوى الصفحات -->
+    <div id="dashboardPage" class="page">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="glass-card p-5"><div class="text-3xl mb-2">📩</div><div class="text-2xl font-bold gold-text" id="statNew">0</div><div>خطابات جديدة</div></div>
+            <div class="glass-card p-5"><div class="text-3xl mb-2">⏳</div><div class="text-2xl font-bold gold-text" id="statReview">0</div><div>قيد المراجعة</div></div>
+            <div class="glass-card p-5"><div class="text-3xl mb-2">✔️</div><div class="text-2xl font-bold gold-text" id="statApproved">0</div><div>مقبولة</div></div>
+            <div class="glass-card p-5"><div class="text-3xl mb-2">❌</div><div class="text-2xl font-bold gold-text" id="statRejected">0</div><div>مرفوضة</div></div>
+        </div>
+        <div class="glass-card p-6">
+            <h2 class="text-xl gold-text mb-4">⚡ الإجراءات السريعة</h2>
+            <div class="flex gap-4 flex-wrap">
+                <button onclick="switchTab('sendLetter')" class="btn-gold px-6 py-3 rounded-2xl">➕ إرسال خطاب جديد</button>
+                <button onclick="switchTab('documents')" class="btn-outline-gold px-6 py-3 rounded-2xl">📂 عرض المستندات</button>
+                <button onclick="switchTab('rules')" class="btn-outline-gold px-6 py-3 rounded-2xl">📜 القوانين والأنظمة</button>
+            </div>
+        </div>
+    </div>
 
-<h2 style="text-align:center;color:#6c7cff;">نموذج تقديم الإدارة</h2>
+    <div id="sendLetterPage" class="page" style="display: none;">
+        <div class="glass-card p-6 md:p-8">
+            <h2 class="text-2xl gold-text mb-6">📝 نموذج خطاب رسمي</h2>
+            <form id="letterForm">
+                <div class="grid md:grid-cols-2 gap-5 mb-4">
+                    <input type="text" id="fullName" placeholder="الاسم الكامل" required class="w-full">
+                    <select id="rank" class="w-full">
+                        <option value="">الرتبة (اختياري)</option>
+                        <option>عضو</option><option>ضابط</option><option>قائد</option>
+                    </select>
+                </div>
+                <input type="text" id="title" placeholder="عنوان الخطاب" required class="w-full mb-4">
+                <select id="letterType" required class="w-full mb-4">
+                    <option value="">نوع الخطاب</option>
+                    <option>طلب انضمام</option><option>شكوى</option><option>اقتراح</option><option>تقرير إداري</option><option>طلب ترقية</option>
+                </select>
+                <textarea id="content" rows="6" placeholder="نص الخطاب (محتوى رسمي)" required class="w-full mb-4"></textarea>
+                <div class="mb-4">
+                    <label class="block text-sm text-gray-300 mb-1">📎 مرفق (PDF/DOCX وهمي)</label>
+                    <input type="file" id="attachment" accept=".pdf,.docx">
+                </div>
+                <div class="mb-5">
+                    <label class="block text-sm text-gray-300 mb-2">🖊️ التوقيع الإلكتروني</label>
+                    <input type="text" id="signature" placeholder="اكتب توقيعك الاسمي" class="w-full" value="مُوقَّع: ">
+                    <div class="mt-2 text-gold text-sm">✍️ المعاينة: <span id="sigPreview" class="signature-preview"></span></div>
+                </div>
+                <button type="submit" class="btn-gold w-full py-3 rounded-2xl text-lg font-bold">🚀 إرسال إلى إدارة REX</button>
+            </form>
+        </div>
+    </div>
 
-<form>
-  <input placeholder="1. الاسم الكامل" class="input">
-  <input placeholder="2. اسمك في الديسكورد" class="input">
-  <input placeholder="3. كم عمرك؟" class="input">
-  <input placeholder="4. من أي دولة؟" class="input">
-  <input placeholder="5. كم عدد ساعات تواجدك اليومي؟" class="input">
-  <textarea placeholder="6. هل سبق لك العمل كإداري؟ وأين؟" class="input"></textarea>
-  <textarea placeholder="7. لماذا تريد الانضمام للإدارة؟" class="input"></textarea>
-  <textarea placeholder="8. ما الذي يميزك عن غيرك؟" class="input"></textarea>
-  <textarea placeholder="9. كيف تتعامل مع المشاكل والخلافات؟" class="input"></textarea>
-  <textarea placeholder="10. هل تستطيع الالتزام بالقوانين والتعليمات؟" class="input"></textarea>
-  <input placeholder="11. هل لديك مايكروفون وحساب ديسكورد نشط؟" class="input">
-  <textarea placeholder="12. أي ملاحظات أو إضافات تحب تقولها؟" class="input"></textarea>
+    <div id="documentsPage" class="page" style="display: none;">
+        <div class="glass-card p-6">
+            <div class="flex flex-wrap gap-3 justify-between items-center mb-6">
+                <h2 class="text-xl gold-text">📂 أرشيف الخطابات</h2>
+                <div class="flex gap-2">
+                    <input type="text" id="searchDoc" placeholder="بحث بالاسم أو العنوان" class="py-2 px-4 w-64">
+                    <select id="filterType" class="py-2"><option value="">كل الأنواع</option><option>طلب انضمام</option><option>شكوى</option><option>اقتراح</option><option>تقرير إداري</option><option>طلب ترقية</option></select>
+                </div>
+            </div>
+            <div id="documentsList" class="space-y-4 max-h-[600px] overflow-y-auto"></div>
+        </div>
+    </div>
 
-  <button type="submit" class="send">إرسال الطلب</button>
-</form>
+    <div id="rulesPage" class="page" style="display: none;">
+        <div class="glass-card p-6 md:p-10" style="background: rgba(0,0,0,0.75);">
+            <div class="text-center border-b border-gold pb-4 mb-6">
+                <h1 class="text-3xl font-bold gold-text">دستور منظمة REX</h1>
+                <p class="text-gray-400">النسخة الرسمية - ختم رقمي معتمد</p>
+            </div>
+            <div class="space-y-6">
+                <div><h3 class="text-gold text-xl">📜 القوانين العامة</h3><p class="text-gray-300">1. الالتزام بلوائح REX. 2. احترام التسلسل الهرمي. 3. السرية التامة.</p></div>
+                <div><h3 class="text-gold text-xl">⚖️ قوانين السلوك</h3><p class="text-gray-300">النزاهة، المهنية، عدم استغلال المنصب.</p></div>
+                <div><h3 class="text-gold text-xl">🏛️ نظام العقوبات</h3><p class="text-gray-300">الإنذار، الخصم، التجريد من الرتبة، الفصل النهائي.</p></div>
+                <div><h3 class="text-gold text-xl">⭐ نظام الترقيات</h3><p class="text-gray-300">تقييم الأداء، عدد الخطابات المقبولة، التوصية الإدارية.</p></div>
+            </div>
+            <div class="mt-8 pt-4 text-center border-t border-gold/30">
+                <div class="w-16 h-16 bg-gold/20 rounded-full mx-auto flex items-center justify-center">🔏</div>
+                <p class="text-xs mt-2">موثق بالختم الرقمي لـ REX Administration • ساري من 2025</p>
+            </div>
+        </div>
+    </div>
 
-</section>
-
-<style>
-.input{
-  width:100%;
-  padding:12px;
-  margin:10px 0;
-  background:#0a0a0a;
-  border:none;
-  border-radius:12px;
-  color:rgb(249, 249, 249);
-  font-size:15px;
-}
-
-.send{
-  width:100%;
-  padding:14px;
-  background:linear-gradient(135deg,#6c7cff,#3b49ff);
-  border:none;
-  border-radius:20px;
-  color:rgb(251, 250, 250);
-  font-size:16px;
-  font-weight:bold;
-  cursor:pointer;
-  margin-top:15px;
-}
-.send:hover{
-  transform:translateY(-2px);
-  transition:.3s;
-}
-</style>
-
-<style>
-.topbtn{
-    text-decoration:none;
-    color:rgb(247, 243, 243);
-    padding:10px 25px;
-    background:#222;
-    border-radius:20px;
-    margin-left:10px;
-    font-weight:bold;
-    transition:.3s;
-}
-
-.topbtn:hover{
-    background:#ffffff;
-}
-
-.join{
-    background:linear-gradient(135deg,#6c7cff,#3b49ff);
-}
-</style>
+    <div id="adminPanelPage" class="page" style="display: none;">
+        <div class="glass-card p-6">
+            <h2 class="text-2xl gold-text mb-4">🎛️ لوحة إدارة REX</h2>
+            <p class="mb-3 text-sm text-yellow-300" id="adminNotify">📢 إشعارات فورية: سيتم تحديث الخطابات لحظياً</p>
+            <div id="adminLettersContainer" class="space-y-5 max-h-[70vh] overflow-y-auto"></div>
+        </div>
+    </div>
 </div>
+
+<script>
+    // ---------- البيانات الأساسية ----------
+    let currentUser = {
+        id: "u1",
+        fullName: "أحمد المنصور",
+        role: "admin",   // "user" أو "admin" — لتجربة لوحة الإدارة, خليها admin
+        rank: "قائد"
+    };
+
+    let letters = [
+        { id: "l1", senderId: "u2", senderName: "خالد الناصري", title: "طلب ترقية", type: "طلب ترقية", content: "أمتلك الخبرة...", status: "new", adminResponse: "", createdAt: new Date().toISOString(), rank: "ضابط" },
+        { id: "l2", senderId: "u3", senderName: "سارة الحسن", title: "شكوى إدارية", type: "شكوى", content: "تأخر الردود...", status: "review", adminResponse: "", createdAt: new Date(Date.now() - 86400000).toISOString() }
+    ];
+
+    // تحميل محفوظات localStorage
+    function loadData() {
+        const stored = localStorage.getItem("rex_letters");
+        if(stored) letters = JSON.parse(stored);
+        else localStorage.setItem("rex_letters", JSON.stringify(letters));
+        renderAll();
+    }
+    function saveLetters() { localStorage.setItem("rex_letters", JSON.stringify(letters)); }
+
+    // إحصائيات
+    function updateStats() {
+        const newCount = letters.filter(l=>l.status==="new").length;
+        const reviewCount = letters.filter(l=>l.status==="review").length;
+        const approvedCount = letters.filter(l=>l.status==="approved").length;
+        const rejectedCount = letters.filter(l=>l.status==="rejected").length;
+        document.getElementById("statNew").innerText = newCount;
+        document.getElementById("statReview").innerText = reviewCount;
+        document.getElementById("statApproved").innerText = approvedCount;
+        document.getElementById("statRejected").innerText = rejectedCount;
+    }
+
+    // عرض المستندات (للعضو العادي)
+    function renderDocuments() {
+        const search = document.getElementById("searchDoc")?.value.toLowerCase() || "";
+        const typeFilter = document.getElementById("filterType")?.value || "";
+        let filtered = letters.filter(l => l.senderName?.toLowerCase().includes(search) || l.title?.toLowerCase().includes(search));
+        if(typeFilter) filtered = filtered.filter(l=> l.type === typeFilter);
+        const container = document.getElementById("documentsList");
+        if(!container) return;
+        if(filtered.length===0) { container.innerHTML = "<div class='text-center p-6'>📭 لا توجد مستندات</div>"; return; }
+        container.innerHTML = filtered.map(letter => `
+            <div class="bg-black/30 p-4 rounded-xl border-r-4 border-${letter.status==='approved'?'green-500':letter.status==='rejected'?'red-500':'gold'}">
+                <div class="flex justify-between flex-wrap"><span class="font-bold gold-text">${letter.title}</span><span class="text-sm text-gray-400">${new Date(letter.createdAt).toLocaleDateString()}</span></div>
+                <div class="text-sm">من: ${letter.senderName} | النوع: ${letter.type} | الحالة: ${getStatusArabic(letter.status)}</div>
+                <div class="text-gray-300 text-sm mt-1">${letter.content.substring(0,100)}...</div>
+                ${letter.adminResponse ? `<div class="text-xs text-gold mt-2">📌 رد الإدارة: ${letter.adminResponse}</div>` : ''}
+            </div>
+        `).join('');
+    }
+
+    function getStatusArabic(status) {
+        const map = { new:"جديد", review:"قيد المراجعة", approved:"مقبول", rejected:"مرفوض", modification:"طلب تعديل" };
+        return map[status] || status;
+    }
+
+    // لوحة الإدارة
+    function renderAdminPanel() {
+        if(currentUser.role !== "admin") {
+            document.getElementById("adminLettersContainer").innerHTML = "<div class='p-6 text-center'>🔒 لا تملك صلاحيات إدارية. سجل كمشرف (يمكنك تعديل currentUser.role='admin' في الكود)</div>";
+            return;
+        }
+        const container = document.getElementById("adminLettersContainer");
+        if(!container) return;
+        if(letters.length===0) { container.innerHTML = "<div class='text-center p-6'>✉️ لا خطابات بعد</div>"; return; }
+        container.innerHTML = letters.map(letter => `
+            <div class="bg-black/40 p-4 rounded-2xl border border-white/10" data-id="${letter.id}">
+                <div class="flex justify-between flex-wrap"><span class="font-bold text-gold">${letter.title}</span><span class="text-xs">${new Date(letter.createdAt).toLocaleString()}</span></div>
+                <div><span class="text-sm">👤 ${letter.senderName} (${letter.rank||"عضو"}) | ${letter.type}</span></div>
+                <div class="bg-black/30 p-2 my-2 rounded">${letter.content.substring(0,120)}</div>
+                <div class="flex gap-3 mt-3 flex-wrap">
+                    <button onclick="updateLetterStatus('${letter.id}','approved','تم قبول الخطاب')" class="bg-green-700 hover:bg-green-600 px-4 py-1 rounded-full text-sm">✔️ قبول</button>
+                    <button onclick="updateLetterStatus('${letter.id}','rejected','مرفوض للأسباب التالية...')" class="bg-red-700 hover:bg-red-600 px-4 py-1 rounded-full text-sm">❌ رفض</button>
+                    <button onclick="updateLetterStatus('${letter.id}','review','قيد المراجعة')" class="bg-yellow-700 hover:bg-yellow-600 px-4 py-1 rounded-full text-sm">⏳ مراجعة</button>
+                    <button onclick="updateLetterStatus('${letter.id}','modification','نطلب تعديل المستند')" class="bg-blue-700 hover:bg-blue-600 px-4 py-1 rounded-full text-sm">✏️ طلب تعديل</button>
+                </div>
+                ${letter.adminResponse ? `<div class="text-xs text-gray-300 mt-2">🗣️ رد: ${letter.adminResponse}</div>` : ''}
+            </div>
+        `).join('');
+    }
+
+    window.updateLetterStatus = function(id, newStatus, responseMsg) {
+        const letter = letters.find(l=>l.id===id);
+        if(letter) {
+            letter.status = newStatus;
+            letter.adminResponse = responseMsg;
+            letter.decisionDate = new Date().toISOString();
+            saveLetters();
+            renderAll();
+            showNotification(`تم تحديث الخطاب ${letter.title} إلى ${getStatusArabic(newStatus)}`);
+        }
+    };
+
+    function showNotification(msg) {
+        const notifyDiv = document.getElementById("adminNotify");
+        if(notifyDiv) { notifyDiv.innerHTML = `🔔 ${msg}`; setTimeout(()=>{ if(notifyDiv) notifyDiv.innerHTML = "📢 إشعارات فورية: تم التحديث"; },3000); }
+        else alert(msg);
+    }
+
+    // إرسال خطاب جديد
+    document.getElementById("letterForm")?.addEventListener("submit", function(e) {
+        e.preventDefault();
+        const fullName = document.getElementById("fullName").value;
+        const rank = document.getElementById("rank").value;
+        const title = document.getElementById("title").value;
+        const type = document.getElementById("letterType").value;
+        const content = document.getElementById("content").value;
+        let signature = document.getElementById("signature").value;
+        if(!signature.trim()) signature = "موقّع: "+fullName;
+        const newLetter = {
+            id: "l"+Date.now(),
+            senderId: currentUser.id,
+            senderName: fullName,
+            rank: rank || "عضو",
+            title,
+            type,
+            content,
+            status: "new",
+            adminResponse: "",
+            createdAt: new Date().toISOString(),
+            digitalSignature: signature
+        };
+        letters.unshift(newLetter);
+        saveLetters();
+        renderAll();
+        switchTab('dashboard');
+        alert("✅ تم إرسال الخطاب إلى إدارة REX بنجاح");
+        this.reset();
+        document.getElementById("signature").value = "";
+    });
+
+    // معاينة التوقيع
+    const sigInput = document.getElementById("signature");
+    const sigPreview = document.getElementById("sigPreview");
+    if(sigInput && sigPreview) {
+        sigInput.addEventListener("input", ()=> sigPreview.innerText = sigInput.value || "التوقيع");
+        sigPreview.innerText = sigInput.value;
+    }
+
+    // البحث والتصفية في المستندات
+    function bindDocEvents() {
+        const searchInput = document.getElementById("searchDoc");
+        const filterSelect = document.getElementById("filterType");
+        if(searchInput) searchInput.addEventListener("input", ()=> renderDocuments());
+        if(filterSelect) filterSelect.addEventListener("change", ()=> renderDocuments());
+    }
+
+    // التبديل بين التبويبات
+    function switchTab(tabId) {
+        document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+        document.getElementById(tabId+"Page").style.display = 'block';
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+        if(tabId === 'documents') renderDocuments();
+        if(tabId === 'adminPanel') renderAdminPanel();
+        if(tabId === 'dashboard') updateStats();
+    }
+
+    window.switchTab = switchTab;
+
+    // ربط أزرار التبويب
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const tab = btn.getAttribute('data-tab');
+            if(tab) switchTab(tab);
+        });
+    });
+
+    // التحقق من صلاحية admin لإظهار تبويب الإدارة
+    function adjustAdminTab() {
+        const adminBtn = document.getElementById("adminTabBtn");
+        if(currentUser.role !== "admin") adminBtn.style.display = "none";
+        else adminBtn.style.display = "inline-block";
+        const roleBadge = document.getElementById("userRoleBadge");
+        if(roleBadge) roleBadge.innerText = currentUser.role === "admin" ? "مدير 🔑" : "عضو";
+    }
+
+    // تسجيل الخروج
+    document.getElementById("logoutBtn")?.addEventListener("click", ()=>{
+        currentUser.role = "user";
+        adjustAdminTab();
+        renderAll();
+        switchTab('dashboard');
+        alert("تم تسجيل الخروج، أصبحت صلاحياتك عضو عادي (يمكنك تعديل الكود لتصبح admin مجدداً)");
+    });
+
+    function renderAll() {
+        updateStats();
+        renderDocuments();
+        renderAdminPanel();
+        adjustAdminTab();
+        if(document.getElementById("adminPanelPage").style.display !== 'none') renderAdminPanel();
+        if(document.getElementById("documentsPage").style.display !== 'none') renderDocuments();
+    }
+
+    // بدء التشغيل
+    loadData();
+    bindDocEvents();
+    adjustAdminTab();
+    switchTab('dashboard');
+    // جعل المستخدم الحالي admin للتجربة الكاملة (يمكنك تغيير السطر بالأسفل)
+    currentUser.role = "admin";   // اجعلها admin لتجربة لوحة التحكم
+    adjustAdminTab();
+    renderAll();
+</script>
 </body>
 </html>
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles.css" />
-    <title>MusaabK99</title>
-  </head>
-  <body>
-    <div class="container"></div>
-
-    <header>
-
-
-
-
-
-
-
-
